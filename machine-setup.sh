@@ -12,6 +12,11 @@ fi
 
 echo "OS: "$OS" with version: "$VER
 
+
+
+
+install_git() {
+
 echo "Starting with git"
 
 if [[ "$OS" == "Ubuntu" ]]; then 
@@ -24,8 +29,10 @@ else
 fi
 
 echo "Git is installed with version: "$(git --version)
+}
 
 
+install_java(){
 echo "Starting with Java 11"
 
 JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
@@ -41,7 +48,9 @@ EOF
 
 chmod +x /etc/profile.d/java.sh
 source /etc/profile.d/java.sh
+}
 
+install_maven(){
 
 echo "Install Maven"
 
@@ -64,8 +73,10 @@ source /etc/profile.d/maven.sh
 
 mvn --version
 
+}
 
 
+install_gradle(){
 echo "Install Gradle"
 
 apt-get update && apt-get install unzip
@@ -84,7 +95,7 @@ source /etc/profile.d/gradle.sh
 
 gradle -v
 
-
+}
 
 echo "Cleaning"
 rm -rf ~/Downloads/*
