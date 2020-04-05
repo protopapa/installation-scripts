@@ -44,9 +44,16 @@ sh software-scripts/install-gradle-6.sh
 
 # Docker
 
+# Docker Compose
+
 # GoLang
 
 # NodeJs
+
+# Hugo 
+
+# 
+
 
 # Clean
 echo "Cleaning ...."
