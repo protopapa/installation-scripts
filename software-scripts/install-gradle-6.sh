@@ -11,7 +11,7 @@
 #       CREATED: 2020-04-05 15:30:27
 #===============================================================================
 
-user= $(whoami)
+user=$(whoami)
 
 wget https://services.gradle.org/distributions/gradle-6.3-all.zip -P ~/Downloads
 sudo  unzip -d /opt/gradle /home/${user}/Downloads/gradle-6.3-all.zip
@@ -22,12 +22,11 @@ sudo su << SUDO_CAT
 cat << EOF > /etc/profile.d/gradle.sh
 #!/bin/sh
 export PATH=${gradle_dir}/bin:${PATH}
+export GRADLE_HOME=${gradle_dir}
 EOF
 SUDO_CAT
 
 sudo chmod +x /etc/profile.d/gradle.sh
-sudo source /etc/profile.d/gradle.sh
+. /etc/profile.d/gradle.sh
 
 gradle -v
-
-

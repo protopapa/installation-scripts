@@ -13,7 +13,7 @@
 #===============================================================================
 
 
-if [[ -f /etc/os-release ]]; then
+if [ -f /etc/os-release ]; then
 	# freedesktop.org and systemd
 	. /etc/os-release
     	OS=$NAME
@@ -22,12 +22,12 @@ fi
 
  echo "OS: "$OS" with version: "$VER
 
- if [[ "$OS" == "Ubuntu" ]]; then 
-         add-apt-repository ppa:git-core/ppa 
-         apt update; apt install git
- elif [[ "$OS" == "Debian" ]]; then
-         apt-get update; apt-get install git
- else
+if [ "$OS" = "Ubuntu" ]; then 
+         sudo add-apt-repository ppa:git-core/ppa 
+         sudo apt update; sudo apt install git
+elif [ "$OS" = "Debian GNU/Linux" ]; then
+         sudo apt-get update; sudo apt-get install git
+else
          echo "This script does not work for "$OS
 fi
 

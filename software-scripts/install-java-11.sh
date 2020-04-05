@@ -27,6 +27,6 @@ EOF
 SUDO_CAT
 
 sudo chmod +x /etc/profile.d/java.sh
-sudo source /etc/profile.d/java.sh
+. /etc/profile.d/java.sh
 
 
