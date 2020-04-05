@@ -23,8 +23,8 @@ sudo apt-get update; sudo apt-get install unzip
 
 # Git
 
-#echo "Install Git"
-#sh software-scripts/install-git.sh
+echo "Install Git"
+sh software-scripts/install-git.sh
 
 # Java 11
 
