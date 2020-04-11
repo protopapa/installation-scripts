@@ -24,4 +24,4 @@ sudo apt install virtualbox-6.0
 
 #Install VBox extension Pack
 wget https://download.virtualbox.org/virtualbox/6.0.10/Oracle_VM_VirtualBox_Extension_Pack-6.0.10.vbox-extpack -P ~/Downloads
-sudo VBoxManage extpack install /home/${user}/Oracle_VM_VirtualBox_Extension_Pack-6.0.10.vbox-extpack
+sudo VBoxManage extpack install /home/${user}/Downloads/Oracle_VM_VirtualBox_Extension_Pack-6.0.10.vbox-extpack
