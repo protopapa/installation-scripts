@@ -52,6 +52,8 @@ sh software-scripts/install-gradle-6.sh
 
 # Hugo 
 
+sh software-scripts/install-hugo-69.sh
+
 # 
 
 
