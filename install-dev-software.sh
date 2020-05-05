@@ -44,7 +44,8 @@ sh software-scripts/install-gradle-6.sh
 
 # Docker
 
-# Docker Compose
+echo "Install Docker Engine"
+sh software-scripts/install-dockerEngine.sh
 
 # GoLang
 
