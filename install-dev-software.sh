@@ -57,6 +57,9 @@ sh software-scripts/install-hugo-69.sh
 
 # 
 
+#Mongo DB 4.2
+
+sh software-scripts/install-mongodb-42.sh
 
 # Clean
 echo "Cleaning ...."
