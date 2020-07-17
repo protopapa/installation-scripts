@@ -1,13 +1,13 @@
-#!/bin/bash - 
+#!/bin/bash -
 #===============================================================================
 #
 #          FILE: install-core-software.sh
-# 
-#         USAGE: ./install-core-software.sh 
-# 
+#
+#         USAGE: ./install-core-software.sh
+#
 #   DESCRIPTION: Script to install utility/entertainment software
-# 
-#        AUTHOR: Anastasia Protopapa, 
+#
+#        AUTHOR: Anastasia Protopapa,
 #       CREATED: 2020-04-05 16:48:05
 #      REVISION:  001
 #===============================================================================
@@ -42,13 +42,12 @@ sh software-scripts/install-vbox.sh
 
 # Guake
 
-# TLP 
+# TLP
 
 # Powertop
 
-# smbios-thermal-ctl 
+# smbios-thermal-ctl
 
 # s-tui
 
-
-
+sudo apt-get install curl

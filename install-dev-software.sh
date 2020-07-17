@@ -1,14 +1,14 @@
-#!/bin/bash - 
+#!/bin/bash -
 #===============================================================================
 #
 #          FILE: install-software.sh
-# 
-#         USAGE: ./install-software.sh 
-# 
-#   DESCRIPTION: 
-# 
+#
+#         USAGE: ./install-software.sh
+#
+#   DESCRIPTION:
+#
 #  REQUIREMENTS: Debian based OS
-#        AUTHOR: Anastasia Protopapa, 
+#        AUTHOR: Anastasia Protopapa,
 #       CREATED: 2020-04-05 14:56:57
 #      REVISION:  001
 #===============================================================================
@@ -50,12 +50,15 @@ sh software-scripts/install-dockerEngine.sh
 # GoLang
 
 # NodeJs
+sh software-scripts/install-NodeJs.sh 
 
-# Hugo 
+# Amazon CLI
+sh software-scripts/install-amazon-cli.sh
 
+# Hugo
 sh software-scripts/install-hugo-69.sh
 
-# 
+#
 
 #Mongo DB 4.2
 
