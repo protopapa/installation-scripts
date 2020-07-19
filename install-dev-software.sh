@@ -64,6 +64,15 @@ sh software-scripts/install-hugo-69.sh
 
 sh software-scripts/install-mongodb-42.sh
 
+
+#IntelliJ
+
+sudo snap install intellij-idea-ultimate --classic
+
+# Webstorm
+
+sudo snap install webstorm --classic
+
 # Clean
 echo "Cleaning ...."
 

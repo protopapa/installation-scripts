@@ -51,3 +51,6 @@ sh software-scripts/install-vbox.sh
 # s-tui
 
 sudo apt-get install curl
+
+sudo apt-get install snapd
+
