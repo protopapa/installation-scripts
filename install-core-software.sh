@@ -22,30 +22,16 @@ sudo apt-get update;
 
 sudo apt-get install vlc
 
-# Google Chrome
-
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P ~/Downloads
-sudo apt install /home/${user}/Downloads/google-chrome-stable_current_amd64.deb
-
 # Skype
 
 wget https://go.skype.com/skypeforlinux-64.deb -P ~/Downloads
 sudo apt install /home/${user}/Downloads/skypeforlinux-64.deb
 
 # Atom
-
 sh software-scripts/install-atom.sh
 
-# Virtual-Box
-#sh software-scripts/install-vbox.sh
-
-# Powertop
-
-# smbios-thermal-ctl
-
-# s-tui
-
+#Misc and Stuff
 sudo apt-get install curl
-
 sudo apt-get install snapd
+
 
