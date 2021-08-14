@@ -37,12 +37,7 @@ sudo apt install /home/${user}/Downloads/skypeforlinux-64.deb
 sh software-scripts/install-atom.sh
 
 # Virtual-Box
-
-sh software-scripts/install-vbox.sh
-
-# Guake
-
-# TLP
+#sh software-scripts/install-vbox.sh
 
 # Powertop
 

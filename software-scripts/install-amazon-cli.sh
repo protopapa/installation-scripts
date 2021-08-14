@@ -8,7 +8,6 @@
 #   DESCRIPTION: Installs Amazon CLI version 2 on Debian based OS
 #
 #        AUTHOR: Anastasia Protopapa,
-#       CREATED: 2020-07-17 18:53:19
 #===============================================================================
 
 user=$(whoami)

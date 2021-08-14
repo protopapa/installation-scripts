@@ -56,14 +56,11 @@ sh software-scripts/install-NodeJs.sh
 sh software-scripts/install-amazon-cli.sh
 
 # Hugo
-sh software-scripts/install-hugo-69.sh
-
-#
+sh software-scripts/install-hugo.sh
 
 #Mongo DB 4.2
 
 sh software-scripts/install-mongodb-42.sh
-
 
 #IntelliJ
 

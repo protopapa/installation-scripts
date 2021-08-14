@@ -1,14 +1,13 @@
 #!/bin/bash - 
 #===============================================================================
 #
-#          FILE: install-hugo-69.sh
+#          FILE: install-hugo.sh
 # 
-#         USAGE: ./install-hugo-69.sh 
+#         USAGE: ./install-hugo.sh
 # 
 #   DESCRIPTION: Install Hugo in Debian based OS 
 # 
-#        AUTHOR: Anastasia Protopapa (natassa.prt@gmail.com), 
-#       CREATED: 2020-04-11 13:41:41
+#        AUTHOR: Anastasia Protopapa,
 #===============================================================================
 
 
@@ -16,6 +15,6 @@ set -e
 user=$(whoami)
 
 
-wget https://github.com/gohugoio/hugo/releases/download/v0.73.0/hugo_0.73.0_Linux-64bit.deb -P ~/Downloads
+wget https://github.com/gohugoio/hugo/releases/download/v0.87.0/hugo_0.87.0_Linux-64bit.deb -P ~/Downloads
 sudo apt install /home/${user}/Downloads/hugo_*.deb
 

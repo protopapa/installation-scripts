@@ -6,10 +6,8 @@
 #         USAGE: ./install-maven-3.sh 
 # 
 #   DESCRIPTION: Install Maven 3.6.3 on Debian based OS 
-# 
-#        AUTHOR: YOUR NAME (), 
-#       CREATED: 2020-04-05 15:27:41
-#===============================================================================
+#
+# ===============================================================================
 
 user=$(whoami)
 maven_dir="/opt/maven"
