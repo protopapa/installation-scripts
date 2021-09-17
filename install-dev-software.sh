@@ -9,8 +9,6 @@
 #
 #  REQUIREMENTS: Debian based OS
 #        AUTHOR: Anastasia Protopapa,
-#       CREATED: 2020-04-05 14:56:57
-#      REVISION:  001
 #===============================================================================
 
 set -e
@@ -31,17 +29,6 @@ sh software-scripts/install-git.sh
 echo "Install Java 11"
 sh software-scripts/install-java-11.sh
 
-# Maven 3.6.3
-
-echo "Install Maven"
-sh software-scripts/install-maven-3.sh
-
-# Gradle 6.3
-
-echo "Install Gradle"
-sh software-scripts/install-gradle-6.sh
-
-
 # Docker
 
 echo "Install Docker Engine"
@@ -58,10 +45,6 @@ sh software-scripts/install-amazon-cli.sh
 # Hugo
 sh software-scripts/install-hugo.sh
 
-#Mongo DB 4.2
-
-sh software-scripts/install-mongodb-42.sh
-
 #IntelliJ
 
 sudo snap install intellij-idea-ultimate --classic
@@ -69,6 +52,15 @@ sudo snap install intellij-idea-ultimate --classic
 # Webstorm
 
 sudo snap install webstorm --classic
+
+#Install bazel build tool
+
+sh software-scripts/install-bazel.sh
+
+#Install Aws Vault
+
+sh software-scripts/install-aws-vault.sh
+
 
 # Clean
 echo "Cleaning ...."
