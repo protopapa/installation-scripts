@@ -7,17 +7,10 @@
 
     tasks:
         - name: update and upgrade apt packages
-         ansible.builtin.apt:
+          ansible.builtin.apt:
             upgrade: yes
             update-cache: yes
 
-        - name: "Get lsb_release"
-          ansible.builtin.shell: lsb_release -cs
-          register: lsb_release
-        - name: "Print lsb_release"
-          debug:
-            msg: "{{ lsb_release.stdout }}"
-        
         - name: apt update
           become: yes
           ansible.builtin.apt:
@@ -43,11 +36,13 @@
             - vim
             - git 
             - npm
-            - scdaemon  
-
+            - scdaemon 
+            - ca-certificates
+            - gnupg
+  
         - name: Create Repositories folder
           ansible.builtin.file:
-            path: /home/protopapa/Repositories
+            path: /home/{{ ansible_user }}/Repositories
             state: directory
             mode: '0755'
 
@@ -124,6 +119,57 @@
           ansible.builtin.apt:
             deb: "https://www.dropbox.com/download?dl=packages/debian/dropbox_2024.01.22_amd64.deb"
 
+#### Install Docker Engine
+
+        - name: Install Docker
+          become: yes
+          ansible.builtin.shell:
+            cmd: |
+              sudo install -m 0755 -d /etc/apt/keyrings
+              curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+              sudo chmod a+r /etc/apt/keyrings/docker.gpg
+        
+        - name: Add the repository to Apt sources
+          block:
+            - name: Add repos
+              ansible.builtin.shell:
+                cmd: |
+                  echo \
+                  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+                  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+                  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+            - name: Update apt
+              ansible.builtin.apt:
+                upgrade: yes
+                update_cache: yes
+
+        - name: Install Docker packages
+          become: yes
+          ansible.builtin.apt:
+            name:
+              - docker-ce
+              - docker-ce-cli
+              - containerd.io
+              - docker-buildx-plugin
+              - docker-compose-plugin
+            state: latest
+            update_cache: yes
+
+        - name: Ensure Docker group exists
+          become: yes
+          ansible.builtin.group:
+            name: docker
+            state: present
+            register: docker_group
+
+        - name: Add User to docker group
+          become: yes
+          ansible.builtin.user:
+            name: {{ ansible_user }}
+            groups: docker
+            append: true
+
+### Snap Installations       
 
         - name: Install packages with snap
           community.general.snap:
