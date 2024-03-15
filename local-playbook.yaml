@@ -2,8 +2,10 @@
   - name: Set up new machine
     hosts: localhost
     become: yes # escalate priviledge
-          vars:
-              go_version: "1.22.1"
+    vars:
+      go_version: "1.22.1"
+      ansible_user: protopapa
+      zsh_dependencies: []
 
     tasks:
         - name: update and upgrade apt packages
@@ -14,31 +16,32 @@
         - name: apt update
           become: yes
           ansible.builtin.apt:
-          update_cache: yes
+            update_cache: yes
 
-        - name: Add guake terminal repo
-          ansible.builtin.apt_repository:
-          repo: ppa:linuxuprising/guake
+              #        - name: Add guake terminal repo
+              # ansible.builtin.apt_repository:
+              # repo: ppa:linuxuprising/guake
 
-        - name: apt update
-          become: yes
-          ansible.builtin.apt:
-          update_cache: yes
+              # - name: apt update
+              #become: yes
+              # ansible.builtin.apt:
+              # update_cache: yes
 
         - name: Install packages basic packages
           ansible.builtin.apt:
-          pkg:
-            - guake
-            - zsh
-            - zplug
-            - curl
-            - unzip
-            - vim
-            - git 
-            - npm
-            - scdaemon 
-            - ca-certificates
-            - gnupg
+            pkg:
+              - guake
+              - zsh
+              - zplug
+              - curl
+              - unzip
+              - vim
+              - git 
+              - npm
+              - scdaemon 
+              - ca-certificates
+              - gnupg
+              - snapd
   
         - name: Create Repositories folder
           ansible.builtin.file:
@@ -82,8 +85,8 @@
 
         - name: Run Oh My Zsh script
           ansible.builtin.command: sh /tmp/install_ohmyzsh.sh --unattended
-            register: ohmyzsh_result
-            failed_when: "'FAILED' in ohmyzsh_result.stderr"
+          register: ohmyzsh_result
+          failed_when: "'FAILED' in ohmyzsh_result.stderr"
 
 #### Install Golang
 
@@ -105,10 +108,10 @@
         - name: add go bin path to path
           ansible.builtin.shell: export PATH=$PATH:/usr/local/go/bin
 
-        - name: add go path to .profile
-          ansinle.builtin.lineinfile:
+        - name: add go path to dot profile
+          ansible.builtin.lineinfile:
             line: export PATH=$PATH:/usr/local/go/bin
-            path: "/home/{{ ansible_user }}/.profile"
+            path: /home/{{ ansible_user }}/.profile
 
         - name: source .profile
           ansible.builtin.shell: ". /home/{{ ansible_user }}/.profile"
@@ -160,12 +163,11 @@
           ansible.builtin.group:
             name: docker
             state: present
-            register: docker_group
 
         - name: Add User to docker group
           become: yes
           ansible.builtin.user:
-            name: {{ ansible_user }}
+            name: "{{ ansible_user }}"
             groups: docker
             append: true
 
@@ -175,7 +177,7 @@
           community.general.snap:
             name:
               - goland
-              - pyland
+              - pycharm-professional
               - hugo 
               - kubectl
               - kontena-lens

@@ -15,4 +15,6 @@ fi
 python3 -m pip install --upgrade pip
 python3 -m pip install  ansible
 
+ansible-galaxy collection install community.general
+
 ansible-playbook local-playbook.yaml
