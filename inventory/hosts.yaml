@@ -1,0 +1,9 @@
+all:
+  vars:
+    ansible_user: protopapa
+hosts:
+  localhost:
+   vars:
+     ansible_connection: ansible.builtin.local
+     ansible_python_interpreter: /home/protopapa/Repositories/installation-scripts/.venv/bin
+

@@ -1,0 +1,131 @@
+---
+  - name: Set up new machine
+    hosts: localhost
+    become: yes # escalate priviledge
+      #    vars:
+      #        slack_version: "4.32.127"
+      #        go_version: "1.20.5"
+
+    tasks:
+        - name: update and upgrade apt packages
+         ansible.builtin.apt:
+            upgrade: yes
+            update-cache: yes
+
+        - name: "Get lsb_release"
+          ansible.builtin.shell: lsb_release -cs
+          register: lsb_release
+        - name: "Print lsb_release"
+          debug:
+            msg: "{{ lsb_release.stdout }}"
+        
+        - name: apt update
+          become: yes
+          ansible.builtin.apt:
+          update_cache: yes
+
+        - name: Add guake terminal repo
+          ansible.builtin.apt_repository:
+          repo: ppa:linuxuprising/guake
+
+        - name: apt update
+          become: yes
+          ansible.builtin.apt:
+          update_cache: yes
+
+        - name: Install packages basic packages
+          ansible.builtin.apt:
+          pkg:
+            - guake
+            - zsh
+            - zplug
+            - curl
+            - unzip
+            - vim
+            - git 
+            - npm
+            - scdaemon  
+
+        - name: Create Repositories folder
+          ansible.builtin.file:
+            path: /home/protopapa/Repositories
+            state: directory
+            mode: '0755'
+
+  ###### Update npm and install node
+  
+        - name: Update npm
+          ansible.builtin.shell: npm install -g npm
+
+        - name: Install nodejs from nodesource
+          become: true
+          ansible.builtin.shell: curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+
+        - name: Install nodejs
+          ansible.builtin.apt:
+            pkg: nodejs
+              
+#### zsh setup
+
+        - name: Ensure Zsh with dependencies are installed
+          ansible.builtin.apt:
+            name: "{{ ['zsh'] + zsh_dependencies }}"
+            state: present
+            update_cache: yes
+          become: true
+        - name: Ensure zsh is the default shell
+          user:
+            name: "{{ ansible_user }}"
+            shell: "/usr/bin/zsh"
+        become: true
+
+        - name: Download Oh My Zsh script
+          ansible.builtin.get_url:
+            url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+            dest: /tmp/install_ohmyzsh.sh
+
+
+        - name: Run Oh My Zsh script
+          ansible.builtin.command: sh /tmp/install_ohmyzsh.sh --unattended
+          register: ohmyzsh_result
+          failed_when: "'FAILED' in ohmyzsh_result.stderr"
+
+#### Install Golang
+
+        - name: download go tar
+          get_url:
+            url: "https://go.dev/dl/go{{ go_version }}.linux-amd64.tar.gz "
+            dest: "/tmp/go{{ go_version }}.linux-amd64.tar.gz"
+
+        - name: remove any existing go path
+          file:
+            path: /usr/local/go
+            state: absent
+
+        - name: untar go 
+          unarchive:
+            src: /tmp/go{{ go_version }}.linux-amd64.tar.gz
+            dest: /usr/local
+
+        - name: add go bin path to path
+          shell: export PATH=$PATH:/usr/local/go/bin
+
+        - name: add go path to .profile
+          lineinfile:
+            line: export PATH=$PATH:/usr/local/go/bin
+            path: "/home/{{ ansible_user }}/.profile"
+
+        - name: source .profile
+          shell: ". /home/{{ ansible_user }}/.profile"
+
+        - name: Install packages with snap
+          community.general.snap:
+            name:
+              - goland
+              - pyland
+              - hugo 
+              - kubectl
+              - kontena-lens
+              - code
+            classic: true
+
