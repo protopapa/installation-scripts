@@ -2,9 +2,8 @@
   - name: Set up new machine
     hosts: localhost
     become: yes # escalate priviledge
-      #    vars:
-      #        slack_version: "4.32.127"
-      #        go_version: "1.20.5"
+          vars:
+              go_version: "1.22.1"
 
     tasks:
         - name: update and upgrade apt packages
@@ -73,11 +72,12 @@
             state: present
             update_cache: yes
           become: true
+        
         - name: Ensure zsh is the default shell
-          user:
+          ansible.builtin.user:
             name: "{{ ansible_user }}"
             shell: "/usr/bin/zsh"
-        become: true
+          become: true
 
         - name: Download Oh My Zsh script
           ansible.builtin.get_url:
@@ -87,36 +87,43 @@
 
         - name: Run Oh My Zsh script
           ansible.builtin.command: sh /tmp/install_ohmyzsh.sh --unattended
-          register: ohmyzsh_result
-          failed_when: "'FAILED' in ohmyzsh_result.stderr"
+            register: ohmyzsh_result
+            failed_when: "'FAILED' in ohmyzsh_result.stderr"
 
 #### Install Golang
 
         - name: download go tar
-          get_url:
-            url: "https://go.dev/dl/go{{ go_version }}.linux-amd64.tar.gz "
+          ansible.builtin.get_url:
+            url: "https://go.dev/dl/go{{ go_version }}.linux-amd64.tar.gz"
             dest: "/tmp/go{{ go_version }}.linux-amd64.tar.gz"
 
         - name: remove any existing go path
-          file:
+          ansible.builtin.file:
             path: /usr/local/go
             state: absent
 
         - name: untar go 
-          unarchive:
+          ansible.builtin.unarchive:
             src: /tmp/go{{ go_version }}.linux-amd64.tar.gz
             dest: /usr/local
 
         - name: add go bin path to path
-          shell: export PATH=$PATH:/usr/local/go/bin
+          ansible.builtin.shell: export PATH=$PATH:/usr/local/go/bin
 
         - name: add go path to .profile
-          lineinfile:
+          ansinle.builtin.lineinfile:
             line: export PATH=$PATH:/usr/local/go/bin
             path: "/home/{{ ansible_user }}/.profile"
 
         - name: source .profile
-          shell: ". /home/{{ ansible_user }}/.profile"
+          ansible.builtin.shell: ". /home/{{ ansible_user }}/.profile"
+            
+#### Install Dropbox
+
+        - name: Install Dropbox from deb
+          ansible.builtin.apt:
+            deb: "https://www.dropbox.com/download?dl=packages/debian/dropbox_2024.01.22_amd64.deb"
+
 
         - name: Install packages with snap
           community.general.snap:
@@ -127,5 +134,7 @@
               - kubectl
               - kontena-lens
               - code
+              - slack
+              - spotify
             classic: true
 
