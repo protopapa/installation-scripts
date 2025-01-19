@@ -122,6 +122,24 @@
           ansible.builtin.apt:
             deb: "https://www.dropbox.com/download?dl=packages/debian/dropbox_2024.01.22_amd64.deb"
 
+#### Install Slack Desktop 
+
+        - name: Install Slack Desktop from deb
+          ansible.builtin.apt:
+            deb: "https://downloads.slack-edge.com/desktop-releases/linux/x64/4.41.105/slack-desktop-4.41.105-amd64.deb"
+
+#### Install Joplin 
+
+        - name: download joplin script
+          ansible.builtin.get_url:
+            url: "https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh"
+            dest: "/tmp/Joplin_install_and_update.sh"
+
+         - name: run Joplin install script
+          ansible.builtin.shell: Joplin_install_and_update.sh
+          args: 
+            chdir: /tmp/
+       
 #### Install Docker Engine
 
         - name: Install Docker
@@ -182,7 +200,6 @@
               - kubectl
               - kontena-lens
               - code
-              - slack
               - spotify
             classic: true
 
